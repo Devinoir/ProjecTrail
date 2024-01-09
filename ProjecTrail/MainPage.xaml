@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="using:ProjecTrail.ViewModel"
+             x:Class="ProjecTrail.MainPage"
+             x:Name="ProjectsPage">
+    <ContentPage.BindingContext>
+        <viewModel:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout>
+            <!-- Kopfbereich mit Titel -->
+            <Label Text="Projektmanager" 
+                   FontSize="Large" 
+                   HorizontalOptions="Center" />
+
+            <!-- Liste der Projekte -->
+            <ListView x:Name="ProjectsListView" ItemsSource="{Binding Projects}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Name}" 
+                                           FontSize="Medium" 
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding Beschreibung}" 
+                                           FontSize="Small"/>
+                                </StackLayout>
+                                <Button Text="Löschen" 
+                                        Command="{Binding Path=BindingContext.DeleteProjectCommand, Source={x:Reference Name=ProjectsPage}}"
+                                        CommandParameter="{Binding .}"
+                                        HorizontalOptions="End" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Button zum Erstellen neuer Projekte -->
+            <Button Text="Neues Projekt erstellen" 
+                    Clicked="OnCreateNewProjectClicked"/>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
