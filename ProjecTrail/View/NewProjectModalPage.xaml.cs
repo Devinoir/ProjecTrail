@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using ProjecTrail.MessageClasses;
 using ProjecTrail.Models;
 
-namespace ProjecTrail.Pages;
+namespace ProjecTrail.View;
 
 public partial class NewProjectModalPage : ContentPage
 {

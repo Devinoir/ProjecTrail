@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using ProjecTrail.Pages;
+using ProjecTrail.View;
 
 namespace ProjecTrail;
 

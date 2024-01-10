@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjecTrail.View.ProjectDetailPage"
+             Title="Projektdetails">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <Label Text="Projektname" FontSize="Medium"/>
+            <Entry x:Name="NameEntry" Text="{Binding Project.Name}" />
+
+            <Label Text="Beschreibung" FontSize="Medium"/>
+            <Editor x:Name="DescriptionEditor" Text="{Binding Project.Beschreibung}" />
+
+            <Label Text="Kostenstelle" FontSize="Medium"/>
+            <Entry x:Name="KostenstelleEntry" Text="{Binding Project.Kostenstelle}" />
+
+            <Label Text="Erstelldatum" FontSize="Medium"/>
+            <Label Text="{Binding Project.Erstelldatum}" />
+
+            <!-- Hier können Sie weitere Felder für die Bearbeitung hinzufügen -->
+
+            <Button Text="Änderungen speichern" Command="{Binding SaveCommand}" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

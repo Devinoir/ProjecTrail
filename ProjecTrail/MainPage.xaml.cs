@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjecTrail.MessageClasses;
 using ProjecTrail.Models;
-using ProjecTrail.Pages;
+using ProjecTrail.View;
 using ProjecTrail.ViewModel;
 
 namespace ProjecTrail;
