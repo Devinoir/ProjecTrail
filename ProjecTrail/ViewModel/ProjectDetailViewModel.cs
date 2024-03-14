@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProjecTrail.Database;
 using ProjecTrail.Models;
@@ -19,6 +18,7 @@ namespace ProjecTrail.ViewModel
         public Project Project { get; set; }
         private ProjectDatabase _projectDatabase;
         public ICommand SaveCommand { get; }
+        public Action OnModalClosed { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,20 +37,30 @@ namespace ProjecTrail.ViewModel
                 var dbProject = await _projectDatabase.GetItemAsync(Project.Id);
                 if (dbProject != null)
                 {
+                    // Updating the project properties
                     dbProject.Name = Project.Name;
                     dbProject.Beschreibung = Project.Beschreibung;
                     dbProject.Kostenstelle = Project.Kostenstelle;
-                    // Weitere Eigenschaften nach Bedarf aktualisieren
-                    if (_projectDatabase.Entry(dbProject).State == EntityState.Modified)
+                    // Update other properties as needed
+
+                    // Using SQLite-net to update the project
+                    var updateResult = await _projectDatabase.SaveItemAsync(dbProject);
+
+                    // SQLite-net's UpdateAsync method returns the number of rows affected.
+                    // If updateResult is greater than 0, it means the update was successful.
+                    if (updateResult > 0)
                     {
-                        await _projectDatabase.SaveChangesAsync();
                         await ServiceProvider.DialogService.ShowInfoDialog("", $"Änderungen erfolgreich gespeichert.");
                     }
                     else
                     {
+                        // If no rows were affected, it means no changes were made to the database.
                         await ServiceProvider.DialogService.ShowInfoDialog("", $"Es wurden keine Änderungen vorgenommen.");
                     }
+                    OnModalClosed?.Invoke();
                 }
+
+                await Application.Current.MainPage.Navigation.PopModalAsync();
             }
             catch (Exception e)
             {

@@ -20,11 +20,8 @@ namespace ProjecTrail.Database
 
         async Task Init()
         {
-            if (Database is not null)
-                return;
-
             Database = new SQLiteAsyncConnection(PathDb.GetPath(Constants.DatabaseFilename), Constants.Flags);
-            var result = await Database.CreateTableAsync<Project>();
+            await Database.CreateTableAsync<Project>();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

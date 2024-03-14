@@ -43,7 +43,8 @@ namespace ProjecTrail.ViewModel
 
             var viewModel = new ProjectDetailViewModel(project, _projectDatabase);
             var detailPage = new ProjectDetailPage { BindingContext = viewModel };
-            await Application.Current.MainPage.Navigation.PushAsync(detailPage);
+            viewModel.OnModalClosed = RefreshProjects;
+            await Application.Current.MainPage.Navigation.PushModalAsync(detailPage);
         }
 
         private async void CreateNewProject()
