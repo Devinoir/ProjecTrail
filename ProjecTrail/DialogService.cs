@@ -12,5 +12,10 @@ namespace ProjecTrail
         {
             return await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
         }
+
+        public async Task ShowInfoDialog(string title, string message)
+        {
+            await Application.Current.MainPage.DisplayAlert(title, message, "OK");
+        }
     }
 }

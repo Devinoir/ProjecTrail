@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SQLite;
 
 namespace ProjecTrail.Models
 {
+    [Table("projects")]
     public class Project
     {
-        [Key]
+        [PrimaryKey, AutoIncrement, Column("_id")]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Beschreibung { get; set; }
+        public string Notizen { get; set; }
         public DateTime Erstelldatum { get; set; }
         public string Kostenstelle { get; set; }
-        public List<Aufgabe> Aufgaben { get; set; }
     }
 
 }

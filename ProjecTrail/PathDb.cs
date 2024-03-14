@@ -14,7 +14,7 @@ namespace ProjecTrail
 
             if (DeviceInfo.Platform == DevicePlatform.Android)
             {
-                pathDbSqlite = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                pathDbSqlite = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 pathDbSqlite = Path.Combine(pathDbSqlite, nameDb);
             } else if (DeviceInfo.Platform == DevicePlatform.iOS)
             {

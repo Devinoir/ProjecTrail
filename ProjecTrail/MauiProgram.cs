@@ -1,11 +1,16 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using ProjecTrail.Database;
 using ProjecTrail.View;
+using ProjecTrail.ViewModel;
 
 namespace ProjecTrail;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
+    public static MauiApp App { get; private set; }
+
+    public static MauiApp CreateMauiApp()
 	{
         var builder = MauiApp.CreateBuilder();
 		builder
@@ -16,19 +21,19 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-        builder.Services.AddDbContext<AppDbContext>();
 		builder.Services.AddTransient<MainPage>();
-		builder.Services.AddTransient<NewProjectModalPage>();
+		builder.Services.AddTransient<ProjectDetailPage>();
+        builder.Services.AddTransient<NewProjectModalPage>();
 
-        var dbContext = new AppDbContext();
-        dbContext.Database.EnsureCreated();
-        dbContext.Dispose();
+        builder.Services.AddSingleton<ProjectDatabase>();
 
 
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+        App = builder.Build();
+
+        return App;
 	}
 }

@@ -7,9 +7,8 @@ namespace ProjecTrail.View;
 
 public partial class ProjectDetailPage : ContentPage
 {
-    public ProjectDetailPage(ProjectDetailViewModel vm, Project project)
+    public ProjectDetailPage()
     {
         InitializeComponent();
-        BindingContext = vm;
     }
 }

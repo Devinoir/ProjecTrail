@@ -9,5 +9,6 @@ namespace ProjecTrail
     public interface IDialogService
     {
         Task<bool> ShowConfirmDialog(string title, string message, string accept, string cancel);
+        Task ShowInfoDialog(string title, string message);
     }
 }

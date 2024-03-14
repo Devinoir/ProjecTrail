@@ -10,5 +10,6 @@ namespace ProjecTrail.Models
         public Project Project { get; set; }
         public string Name { get; set; }
         public string Beschreibung { get; set; }
+        public bool IsCompleted { get; set; }     
     }
 }

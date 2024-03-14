@@ -4,44 +4,55 @@
              xmlns:viewModel="using:ProjecTrail.ViewModel"
              x:Class="ProjecTrail.MainPage"
              x:Name="ProjectsPage">
-    <ContentPage.BindingContext>
-        <viewModel:MainPageViewModel />
-    </ContentPage.BindingContext>
 
-    <ScrollView>
-        <StackLayout>
-            <!-- Kopfbereich mit Titel -->
-            <Label Text="Projektmanager" 
-                   FontSize="Large" 
-                   HorizontalOptions="Center" />
+    <StackLayout Margin="20, 0, 20, 20">
 
-            <!-- Liste der Projekte -->
-            <ListView x:Name="ProjectsListView" ItemsSource="{Binding Projects}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Spacing="10">
-                                <StackLayout HorizontalOptions="StartAndExpand">
-                                    <Label Text="{Binding Name}" 
-                                           FontSize="Medium" 
-                                           FontAttributes="Bold"/>
-                                    <Label Text="{Binding Beschreibung}" 
-                                           FontSize="Small"/>
+        <!-- Kopfbereich mit Titel -->
+        <Label Text="Projektmanager" 
+               FontSize="48" 
+               HorizontalOptions="Center"/>
+        <ScrollView Padding="0" Margin="20">
+            <StackLayout>
+                <!-- Liste der Projekte -->
+                <ListView x:Name="ProjectsListView" ItemsSource="{Binding Projects}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <!-- Attach the TapGestureRecognizer to this StackLayout -->
+                                <StackLayout Orientation="Horizontal" Spacing="10" Padding="10"
+                                             BackgroundColor="Transparent">
+                                    <!-- Added padding for better tap experience -->
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.CellTappedCommand, Source={x:Reference ProjectsPage}}"
+                                                              CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <!-- Content Layout -->
+                                    <StackLayout HorizontalOptions="StartAndExpand">
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="Medium" 
+                                               FontAttributes="Bold"/>
+                                        <Label Text="{Binding Beschreibung}" 
+                                               FontSize="Small"/>
+                                    </StackLayout>
+
+                                    <!-- Delete Button -->
+                                    <Button Text="Löschen" 
+                                            Command="{Binding Path=BindingContext.DeleteProjectCommand, Source={x:Reference ProjectsPage}}"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End"/>
                                 </StackLayout>
-                                <Button Text="Löschen" 
-                                        Command="{Binding Path=BindingContext.DeleteProjectCommand, Source={x:Reference Name=ProjectsPage}}"
-                                        CommandParameter="{Binding .}"
-                                        HorizontalOptions="End" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <!-- Button zum Erstellen neuer Projekte -->
-            <Button Text="Neues Projekt erstellen" 
-                    Clicked="OnCreateNewProjectClicked"/>
-        </StackLayout>
-    </ScrollView>
+            </StackLayout>
+        </ScrollView>
+        <!-- Button zum Erstellen neuer Projekte -->
+        <Button Text="+ Neues Projekt erstellen" 
+                x:DataType="viewModel:MainPageViewModel"
+                Command="{Binding NewProjectCommand}" />
+    </StackLayout>
 
 </ContentPage>

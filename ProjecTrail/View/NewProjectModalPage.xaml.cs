@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging;
+using ProjecTrail.Database;
 using ProjecTrail.MessageClasses;
 using ProjecTrail.Models;
 
@@ -6,10 +7,12 @@ namespace ProjecTrail.View;
 
 public partial class NewProjectModalPage : ContentPage
 {
-    private readonly AppDbContext _dbContext;
-    public NewProjectModalPage()
+    private readonly ProjectDatabase _projectDatabase;
+    public Action OnModalClosed { get; set; }
+
+    public NewProjectModalPage(ProjectDatabase projectDatabase)
     {
-        _dbContext = App.DbContext;
+        _projectDatabase = projectDatabase;
         InitializeComponent();
     }
 
@@ -31,9 +34,8 @@ public partial class NewProjectModalPage : ContentPage
         };
 
         // Speichern des Projekts in der Datenbank
-        _dbContext.Projects.Add(neuesProjekt);
-        await _dbContext.SaveChangesAsync();
-
+        await _projectDatabase.SaveItemAsync(neuesProjekt);
+        OnModalClosed?.Invoke();
         await Navigation.PopModalAsync();
     }
 

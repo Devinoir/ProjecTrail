@@ -4,7 +4,7 @@
              x:Class="ProjecTrail.View.NewProjectModalPage"
              Title="NewProjectModalPage">
     <StackLayout Padding="20">
-        <Label Text="Neues Project" FontSize="Medium" HorizontalOptions="Center" />
+        <Label Text="Neues Projekt" FontSize="Medium" HorizontalOptions="Center" />
 
         <Entry x:Name="ProjectNameEntry" Placeholder="Projektname"/>
         <Entry x:Name="ProjectDescriptionEntry" Placeholder="Beschreibung"/>
@@ -12,6 +12,6 @@
 
         <!-- Weitere Eingabefelder nach Bedarf hinzufügen -->
 
-        <Button Text="Project Erstellen" Clicked="OnCreateProjectClicked"/>
+        <Button Text="Projekt Erstellen" Clicked="OnCreateProjectClicked"/>
     </StackLayout>
 </ContentPage>
